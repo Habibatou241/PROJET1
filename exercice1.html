@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulation de chaines de caractères</title>
+    <style>
+        .resultat {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Saisir une chaîne de caractères</h2>
+    
+    <!-- 1) Création de la zone de texte <input> -->
+    <input type="text" id="inputTexte" placeholder="Saisir un texte" oninput="afficherResultats()" style= "width: 500px;">
+
+
+    <!-- 2) Ecriture des deux scripts
+     // script qui prend la chaine saisie et calcule la longueur
+     // script pour extraire une sous-chaine de caractère de la chaine saisie -->
+
+    <script>
+
+        function afficherResultats() {
+
+            // Récupérer la valeur de l'input
+            var chaine = document.getElementById('inputTexte').value;
+
+            // Calculer la longueur de la chaîne
+            var longueur = chaine.length;
+            document.getElementById('longueur').textContent = 'Longueur: ' + longueur;
+
+            // Extraire les trois premiers caractères
+            var sousChaine = chaine.substring(0, 3);
+            document.getElementById('sousChaine').textContent = 'Trois premiers caractères: ' + sousChaine;
+        }
+
+    </script>
+
+    <!-- 3) Affichage des résultats sous la zone de texte lorsque l'utilisateur saisit une chaine -->
+    <div class="resultat">
+
+        <!-- Affichage de la longueur -->
+        <p id="longueur">Longueur: 0</p>
+    
+        <!-- Affichage des trois premiers caractères -->
+        <p id="sousChaine">Trois premiers caractères: </p>
+
+    </div>
+
+</body>
+</html>
