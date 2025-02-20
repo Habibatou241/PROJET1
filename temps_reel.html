@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horloge en temps réel</title>
+    
+    <script>
+        function afficherHeure() {
+            // Obtenir l'heure actuelle
+            var date = new Date();
+            var heures = date.getHours().toString().padStart(2, '0');
+            var minutes = date.getMinutes().toString().padStart(2, '0');
+            var secondes = date.getSeconds().toString().padStart(2, '0');
+            
+            // Formater l'heure en "HH:MM:SS"
+            var heureString = heures + ":" + minutes + ":" + secondes;
+            
+            // Afficher l'heure dans l'input
+            document.getElementById("heure").value = heureString;
+
+            // Mettre à jour l'heure toutes les secondes
+            setTimeout(afficherHeure, 1000);
+        }
+
+        // Appeler la fonction dès le chargement de la page
+        window.onload = afficherHeure;
+    </script>
+</head>
+
+<body>
+    <label for="heure">Heure actuelle :</label>
+    <input type="text" id="heure" readonly>
+</body>
+</html>
