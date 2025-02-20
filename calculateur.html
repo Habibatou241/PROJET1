@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Prêt Hypothécaire</title>
+
+    <script>
+        function calculerPaiementMensuel() {
+            // Récupérer les valeurs saisies par l'utilisateur
+            var montantPret = parseFloat(document.getElementById("montantPret").value);
+            var tauxAnnuel = parseFloat(document.getElementById("tauxAnnuel").value);
+            var dureeAnnees = parseInt(document.getElementById("dureeAnnees").value);
+
+            var erreurs = [];
+
+            // Vérification de la validité des données saisies
+            if (isNaN(montantPret) || montantPret <= 0) {
+                erreurs.push("Veuillez entrer un montant valide et positif.");
+            }
+
+            if (isNaN(tauxAnnuel) || tauxAnnuel <= 0) {
+                erreurs.push("Veuillez entrer un taux d'intérêt valide et positif.");
+            }
+
+            if (isNaN(dureeAnnees) || dureeAnnees <= 0) {
+                erreurs.push("Veuillez entrer une durée valide en années.");
+            }
+
+            // Vérification des cas spécifiques
+            if (montantPret <= 0 && tauxAnnuel <= 0) {
+                erreurs.push("Veuillez entrer un montant de prêt et un taux d'intérêt valides et positifs.");
+            }
+
+            if (montantPret <= 0 && dureeAnnees <= 0) {
+                erreurs.push("Veuillez entrer un montant de prêt valide et positif, ainsi qu'une durée valide en années.");
+            }
+
+            if (tauxAnnuel <= 0 && dureeAnnees <= 0) {
+                erreurs.push("Veuillez entrer un taux d'intérêt valide et positif, ainsi qu'une durée valide en années.");
+            }
+
+            if (montantPret <= 0 && tauxAnnuel <= 0 && dureeAnnees <= 0) {
+                erreurs.push("Veuillez entrer un montant de prêt, un taux d'intérêt et une durée valides et positifs.");
+            }
+
+            // Si des erreurs sont présentes, les afficher toutes
+            if (erreurs.length > 0) {
+                alert(erreurs.join("\n"));
+                return;
+            }
+
+            // Calcul du paiement mensuel si toutes les données sont valides
+            var tauxMensuel = (tauxAnnuel / 100) / 12;  // Conversion du taux annuel en taux mensuel (en décimal)
+            var n = dureeAnnees * 12;  // Nombre total de paiements mensuels
+
+            // Appliquer la formule de l'amortissement pour calculer M
+            var paiementMensuel = montantPret * (tauxMensuel * Math.pow(1 + tauxMensuel, n)) / (Math.pow(1 + tauxMensuel, n) - 1);
+
+            // Afficher le paiement mensuel dans l'élément <p>
+            document.getElementById("resultatPaiement").innerText = "Le paiement mensuel est : " + paiementMensuel.toFixed(2) + " €";
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Calculateur de Prêt Hypothécaire</h1>
+
+    <form onsubmit="event.preventDefault(); calculerPaiementMensuel();">
+        <label for="montantPret">Montant du prêt (€) :</label>
+        <input type="number" id="montantPret" required><br><br>
+
+        <label for="tauxAnnuel">Taux d'intérêt annuel (%) :</label>
+        <input type="number" id="tauxAnnuel" required><br><br>
+
+        <label for="dureeAnnees">Durée du prêt (années) :</label>
+        <input type="number" id="dureeAnnees" required><br><br>
+
+        <button type="submit">Calculer le paiement mensuel</button>
+    </form>
+
+    <p id="resultatPaiement"></p>
+</body>
+</html>
