@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulation de tableaux</title>
+
+    <script>
+        // 1) Création et déclaration du tableau de nombres
+        var tableau = [8, 3, 15, 42, 7];
+
+        // 2) Fonction pour ajouter un élément à la fin du tableau
+        function ajouterElement() {
+            var nouvelElement = parseInt(prompt("Entrez un nombre à ajouter au tableau :"));
+            tableau.push(nouvelElement);  // Ajouter à la fin du tableau
+            afficherTableau();
+        }
+
+        // 3) Fonction pour supprimer un élément spécifique du tableau
+        function supprimerElement() {
+            var elementASupprimer = parseInt(prompt("Entrez un nombre à supprimer du tableau :"));
+            var index = tableau.indexOf(elementASupprimer);
+            if (index !== -1) {
+                tableau.splice(index, 1);  // Supprimer l'élément trouvé
+                alert("L'élément " + elementASupprimer + " a été supprimé.");
+            } else {
+                alert("L'élément " + elementASupprimer + " n'est pas dans le tableau.");
+            }
+            afficherTableau();
+        }
+
+        // 4) Fonction pour trier le tableau dans l'ordre croissant et l'afficher
+        function trierEtAfficher() {
+            tableau.sort(function(a, b) { return a - b; });  // Tri croissant
+            afficherTableau();
+        }
+
+        // Fonction pour afficher le tableau dans l'élément HTML
+        function afficherTableau() {
+            document.getElementById("tableauAffiche").innerHTML = tableau.join(", ");
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>Manipulation des nombres dans un tableau</h1>
+    
+    <p>Tableau actuel : <span id="tableauAffiche"></span></p>
+    <button onclick="ajouterElement()">Ajouter un élément</button>
+    <button onclick="supprimerElement()">Supprimer un élément</button>
+    <button onclick="trierEtAfficher()">Trier le tableau</button>
+
+    <script>
+        // Afficher le tableau au chargement de la page
+        afficherTableau();
+    </script>
+</body>
+</html>
