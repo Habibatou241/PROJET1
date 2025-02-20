@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulation de dates</title>
+</head>
+
+<body>
+    <h1>Formulaire de saisie de date</h1>
+    <!--1) Créer un formulaire pour saisir la date -->
+    <form onsubmit="event.preventDefault(); afficherDate();">
+        <label for="dateInput">Entrez une date (JJ-MM-AAAA) :</label>
+        <input type="text" id="dateInput" placeholder="JJ-MM-AAAA" required>
+        <button type="submit">Soumettre</button>
+    </form>
+
+    <div>
+        <p id="jour"></p>
+        <p id="mois"></p>
+        <p id="annee"></p>
+        <p id="difference"></p>
+    </div>
+
+    <!--2) Créer un script qui prend la date saisie, la convertit en objet Date -->
+    <script>
+        // Fonction pour afficher la date saisie
+        function afficherDate() {
+            // Récupérer la date saisie par l'utilisateur
+            var dateSaisie = document.getElementById('dateInput').value;
+            
+            // Convertir la date au format "JJ-MM-AAAA" en objet Date
+            var partieDate = dateSaisie.split('-');
+            var jour = parseInt(partieDate[0], 10);
+            var mois = parseInt(partieDate[1], 10) - 1; // Les mois commencent à 0 en JavaScript
+            var annee = parseInt(partieDate[2], 10);
+            var date = new Date(annee, mois, jour);
+
+            // Afficher le jour, le mois et l'année dans des <p> distinctes
+            document.getElementById('jour').textContent = 'Jour: ' + date.getDate();
+            document.getElementById('mois').textContent = 'Mois: ' + (date.getMonth() + 1); // Le mois est de 0 à 11
+            document.getElementById('annee').textContent = 'Année: ' + date.getFullYear();
+
+            // Calculer la différence en jours entre la date actuelle et la date saisie
+            var dateActuelle = new Date();
+            var difference = Math.floor((dateActuelle - date) / (1000 * 60 * 60 * 24)); // Conversion en jours
+
+            // Afficher la différence en jours
+            document.getElementById('difference').textContent = 'Différence en jours: ' + difference + ' jours';
+        }
+    </script>
+
+</body>
+</html>
